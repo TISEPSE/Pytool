@@ -14,43 +14,36 @@ banner = """
 |   |      |   |    |   |  |       ||       ||       |
 |___|      |___|    |___|  |_______||_______||_______|
 """
-print(banner)
+print(GREEN + banner + RESET)
+
+# Fonction pour installer un outil et afficher sa version
+def install_tool(name, install_cmd, version_cmd=None, add_group_cmd=None):
+    print(GREEN + f"========== Installation de {name} ==========" + RESET)
+    subprocess.run(install_cmd, shell=True)
+    if add_group_cmd:
+        subprocess.run(add_group_cmd, shell=True)
+    if version_cmd:
+        print(GREEN + f"========== Version de {name} ==========" + RESET)
+        subprocess.run(version_cmd, shell=True)
+
+# Liste des outils à installer
+tools = [
+    ("Nmap", "sudo apt install -y nmap", "nmap --version"),
+    ("Shodan", "sudo apt install -y python3-shodan", "shodan version"),
+    ("Wireshark", "sudo apt install -y wireshark", "wireshark --version", "sudo usermod -aG wireshark $USER")
+]
 
 # Installation Linux (Debian / Ubuntu)
-# Si c'est vide on met "Y" par défaut
 YesOrNot = input("Voulez-vous installer tous les outils disponibles ? (Y/n) : ") or "Y"
 
-# Si la condition est "Y" ou "y" (on le met en majuscule avec .upper()) on exécute le script
 if YesOrNot.upper() == "Y":
-    # Mise à jour du système et instalation des dépendences
-    print(GREEN + "========== Mise à jour du système et installation des dépendences ==========" + RESET)
+    # Mise à jour du système et dépendances
+    print(GREEN + "========== Mise à jour du système et installation de python3 ==========" + RESET)
     subprocess.run("sudo apt update && sudo apt upgrade -y", shell=True)
-    subprocess.run("sudo apt install -y python3", shell=True)    
+    subprocess.run("sudo apt install -y python3", shell=True)
 
-    # Installation des outils
-    print(GREEN + "========== Installation de Nmap ==========" + RESET)
-    subprocess.run("sudo apt install -y nmap", shell=True)
+    # Installer tous les outils de la liste
+    for tool in tools:
+        install_tool(*tool)
 
-    # Affichage de la version de nmap
-    print(GREEN + "========== Version de nmap : ==========" + RESET)
-    subprocess.run("nmap --version", shell=True)
-    
-    #Instalation de shodan
-    print(GREEN + "========== Installation de Shodan ==========" + RESET)
-    subprocess.run("sudo apt install -y python3-shodan", shell=True)
-
-    # Affichage de la version de Shodan
-    print(GREEN + "========== Version de Shodan : ==========" + RESET)
-    subprocess.run("shodan version", shell=True)
-
-    #Instalation de Wireshark
-    print(GREEN + "========== Installation de WireShark ==========" + RESET)
-    subprocess.run("sudo apt install -y wireshark", shell=True)
-    subprocess.run("sudo usermod -aG wireshark $USER", shell=True)
-
-    #Version de WireShark
-    print(GREEN + "========== Version de WireShark ==========" + RESET)
-    subprocess.run("wireshark --version")
-
-    # Fin de l'installation
-    print(GREEN + "========== Installation terminée ! ==========" + RESET)
+    print(GREEN + "============== Installation terminée ! ==============" + RESET)
