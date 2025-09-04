@@ -30,20 +30,32 @@ def install_tool(name, install_cmd, version_cmd=None, add_group_cmd=None):
 tools = [
     ("Nmap", "sudo apt install -y nmap", "nmap --version"),
     ("Shodan", "sudo apt install -y python3-shodan", "shodan version"),
-    ("Wireshark", "sudo apt install -y wireshark", "wireshark --version", "sudo usermod -aG wireshark $USER")
+    ("Wireshark", "sudo apt install -y wireshark", "wireshark --version", "sudo usermod -aG wireshark $USER"),
+    ("Metasploit", "sudo snap install metasploit-framework", "msfupdate && msfconsole --version"),
+    ("Beef", "sudo apt update && sudo apt install -y git ruby ruby-dev build-essential && git clone https://github.com/beefproject/beef.git || true && cd beef && sudo gem install bundler && bundle install && chmod +x beef", "cd beef && ruby beef --version"),
+    ("Postman", "sudo snap install postman", "snap info postman | grep installed"),
+    ("Hascat", "sudo apt install -y hashcat", "hashcat --version"),
+    ("Hydra", "sudo apt install -y hydra", "hydra -v"),
+    ("SqlMap", "git clone --depth 1 https://github.com/sqlmapproject/sqlmap.git sqlmap-dev && cd sqlmap-dev", "sqlmap --version"),
+    ("Wifite", "sudo apt install -y wifite", "git describe --tags"),
+    ("Burpsuite", "sudo snap install burpsuite --classic", "snap info burpsuite | grep installed"),
+
 ]
 
 # Installation Linux (Debian / Ubuntu)
 YesOrNot = input("Voulez-vous installer tous les outils disponibles ? (Y/n) : ") or "Y"
-
 if YesOrNot.upper() == "Y":
+
     # Mise à jour du système et dépendances
-    print(GREEN + "========== Mise à jour du système et installation de python3 ==========" + RESET)
+    print(GREEN + "========== Mise à jour du système et installation des dépendances ==========" + RESET)
     subprocess.run("sudo apt update && sudo apt upgrade -y", shell=True)
     subprocess.run("sudo apt install -y python3", shell=True)
-
+    subprocess.run("sudo apt install -y curl", shell=True)
+    subprocess.run("sudo apt install -y git ruby ruby-dev build-essential", shell=True)
+    subprocess.run("sudo apt install default-jre -y", shell=True)
+    
     # Installer tous les outils de la liste
     for tool in tools:
         install_tool(*tool)
-
+    
     print(GREEN + "============== Installation terminée ! ==============" + RESET)
