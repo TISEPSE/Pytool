@@ -22,7 +22,7 @@ Un script Python simple et automatisé pour installer rapidement les outils de s
 
 ```bash
 # Cloner le projet
-git clone <url-du-repo>
+git clone https://github.com/TISEPSE/Pytool.git
 cd Pytool
 
 # Lancer le script
