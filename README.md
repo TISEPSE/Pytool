@@ -52,22 +52,6 @@ python3 main.py
 - **Python** : Python 3.x installé
 - **Internet** : Connexion stable pour les téléchargements
 
-## 🔧 Fonctionnalités
-
-- ✅ Installation automatisée de 11 outils de sécurité
-- ✅ Mise à jour automatique du système
-- ✅ Vérification des versions après installation
-- ✅ Gestion des groupes utilisateurs (ex: wireshark)
-- ✅ Interface colorée et conviviale
-- ✅ Gestion d'erreurs basique
-
-## 📝 Notes Importantes
-
-- **Temps d'installation** : 15-30 minutes selon la connexion
-- **Espace disque** : ~2-3 GB requis
-- **Burp Suite** : Version Community Edition (gratuite)
-- **Wifite** : Nécessite `sudo` pour l'utilisation
-- **BeEF** : Installation via Git + Ruby gems
 
 ## 🐛 Résolution de Problèmes
 
